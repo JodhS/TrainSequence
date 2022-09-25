@@ -6,14 +6,12 @@ namespace ReadATextFile
 	{
 		// Default folder    
 		static readonly string rootFolder = @"C:\Temp\Data\";
-		//Default file. MAKE SURE TO CHANGE THIS LOCATION AND FILE PATH TO YOUR FILE   
-		static string textFile = @"C:\Temp\Data\train.txt";
 
 		static void Main(string[] args)
 		{
 			Console.Write("Please enter the name containing schedule sequence: ");
 			string? fileName = Console.ReadLine();
-			textFile = $"{rootFolder}\\{fileName}";
+			string textFile = $"{rootFolder}\\{fileName}";
 
 			if (File.Exists(textFile))
 			{
@@ -88,7 +86,16 @@ namespace ReadATextFile
 
 					return $"This train runs express from {map[0].Station} to {lastStation.Station}, stopping only at {secondStation.Station}";
 				}
-				else if (map.Count(x => x.willStop) > 3)
+				else if (map.Count(x => x.willStop) == 4)
+				{
+					var lastStation = map.Last(x => x.willStop);
+					var firstStationIndex = map.FindIndex(x => x.willStop);
+					var secondStation = map.Skip(firstStationIndex + 1).First(x => x.willStop);
+					var thirdStation = map.Skip(secondStation.OrderIndex).First(x => x.willStop);
+
+					return $"This train runs express from {map[0].Station} to {lastStation.Station}, stopping only at {secondStation.Station} and {thirdStation.Station}";
+				}
+				else if (map.Count(x => x.willStop) > 4)
 				{
 					List<string> stringBuilder = new List<string>();
 
