@@ -1,6 +1,6 @@
-﻿/* This program has been created by Ranjodh Sandhu *
- * as part of programming activity for				*
- * Software and Systems Engineer role (3137)		*/
+﻿/* This program has been created by Ranjodh Sandhu 	*
+ * as part of programming activity for			*
+ * QLD Railways Software and Systems Engineer role.	*/
  
 namespace TrainStops
 {
@@ -14,13 +14,13 @@ namespace TrainStops
 		/// <summary>
 		/// The main method. Entry point of the program.
 		/// </summary>
-        static void Main()
+        	static void Main()
 		{
-            Console.Write("Please enter the file name containing Train sequence: ");
+            		Console.Write("Please enter the file name containing Train sequence: ");
 			string? fileName = Console.ReadLine();
 
 			// Append the file name to the Current Directory of program.
-            string textFile = $"{rootFolder}\\{fileName}";
+            		string textFile = $"{rootFolder}\\{fileName}";
 
 			if (File.Exists(textFile))
 			{
@@ -69,12 +69,12 @@ namespace TrainStops
 				isValidated = false;
 				return "The first stop in the stop sequence should always be a stopping station";
 
-            }
+            		}
 			else if (map.Count >= 2 && map.Count(x => x.WillStop) < 2)
 			{
 				isValidated = false;
 				return "At least two stations are required to be stopped";
-            }
+           	 	}
 
 			var map1 = map.Take(lastindex + 1).ToList();
 
@@ -103,7 +103,7 @@ namespace TrainStops
 					else // when train runs express again.
 					{
 						return $"runs express from {map[0].Station} to {lastStation.Station}";
-                    }
+                    			}
 				}
 				else if (map.Count(x => x.WillStop) == 3)
 				{
