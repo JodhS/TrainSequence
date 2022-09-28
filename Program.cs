@@ -1,5 +1,5 @@
 ﻿/* This program has been created by Ranjodh Sandhu 	*
- * as part of programming activity for			*
+ * as part of programming activity for				*
  * QLD Railways Software and Systems Engineer role.	*/
  
 namespace TrainStops
@@ -7,45 +7,45 @@ namespace TrainStops
 	class Program
 	{
 		/// <summary>
-		/// Get the Current Directory of the Program as Default folder.    
+		/// Get the Current Directory of the Program as Default folder.
 		/// </summary>
 		static readonly string? rootFolder = Environment.CurrentDirectory;
 		
 		/// <summary>
 		/// The main method. Entry point of the program.
 		/// </summary>
-        	static void Main()
-		{
-            		Console.Write("Please enter the file name containing Train sequence: ");
-			string? fileName = Console.ReadLine();
-
-			// Append the file name to the Current Directory of program.
-            		string textFile = $"{rootFolder}\\{fileName}";
-
-			if (File.Exists(textFile))
+			static void Main()
 			{
-				// Read a text file line by line.  
-				string[] trains = File.ReadAllLines(textFile);
+				Console.Write("Please enter the file name containing Train sequence: ");
+				string? fileName = Console.ReadLine();
 
-				int index = 1;
-				// Create list of all Stations and their stops.
-				var map = trains.Where(y => y.Contains(',')).Select(x => new Train()
+				// Append the file name to the Current Directory of program.
+				string textFile = $"{rootFolder}\\{fileName}";
+
+				if (File.Exists(textFile))
 				{
-					Station = x.Split(',')[0],
-					WillStop = Convert.ToBoolean(x.Split(',')[1]),
-					OrderIndex = index++
-				}).ToList();
+					// Reads the content of text file line by line.
+					string[] trains = File.ReadAllLines(textFile);
 
-				string s = CalculateSequence(map);
-				Console.WriteLine(s);
-			}
-			else
-			{
-				Console.WriteLine($"File not found - '{textFile}'. Please enter a valid file.");
-			}
+					int index = 1;
+					// Create list of all Stations and their stops.
+					var map = trains.Where(y => y.Contains(',')).Select(x => new Train()
+					{
+						Station = x.Split(',')[0],
+						WillStop = Convert.ToBoolean(x.Split(',')[1]),
+						OrderIndex = index++
+					}).ToList();
 
-			Console.ReadKey();
-		}
+					string s = CalculateSequence(map);
+					Console.WriteLine(s);
+				}
+				else
+				{
+					Console.WriteLine($"File not found - '{textFile}'. Please enter a valid file.");
+				}
+
+				Console.ReadKey();
+			}
 
 		/// <summary>
 		/// method to calculate the sequences based on information in the text file.
@@ -69,12 +69,12 @@ namespace TrainStops
 				isValidated = false;
 				return "The first stop in the stop sequence should always be a stopping station";
 
-            		}
+			}
 			else if (map.Count >= 2 && map.Count(x => x.WillStop) < 2)
 			{
 				isValidated = false;
 				return "At least two stations are required to be stopped";
-           	 	}
+			}
 
 			var map1 = map.Take(lastindex + 1).ToList();
 
@@ -103,7 +103,7 @@ namespace TrainStops
 					else // when train runs express again.
 					{
 						return $"runs express from {map[0].Station} to {lastStation.Station}";
-                    			}
+					}
 				}
 				else if (map.Count(x => x.WillStop) == 3)
 				{
@@ -130,10 +130,10 @@ namespace TrainStops
 					{
 						if (map.Count(x => x.WillStop) > 3)
 						{
-							var frstSequenceLimit = map.Where(x => x.WillStop).Take(3).Last();
-							var d = map.Where(x => x.OrderIndex <= frstSequenceLimit.OrderIndex).ToList();
+							var firstSequenceLimit = map.Where(x => x.WillStop).Take(3).Last();
+							var d = map.Where(x => x.OrderIndex <= firstSequenceLimit.OrderIndex).ToList();
 							stringBuilder.Add(CalculateSequence(d));
-							map.RemoveAll(x => x.OrderIndex <= frstSequenceLimit.OrderIndex);
+							map.RemoveAll(x => x.OrderIndex <= firstSequenceLimit.OrderIndex);
 						}
 						else
 						{
