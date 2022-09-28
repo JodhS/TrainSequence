@@ -1,0 +1,10 @@
+Central, True
+Roma St, False
+South Brisbane, False
+South Bank, True
+Park Road, True
+Buranda, True
+Northgate, False
+Geebung, False
+Zilmere, False
+Carseldine, True
