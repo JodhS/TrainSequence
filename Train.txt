@@ -1,6 +1,0 @@
-Central, True
-Roma St, False
-South Brisbane, False
-South Bank, True
-Park Road, False
-Buranda, True
